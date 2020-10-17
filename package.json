@@ -4,8 +4,10 @@
   "description": "Simple personal finance tracking application build using the MERN stack",
   "main": "server.js",
   "scripts": {
-    "devStart": "nodemon server.js",
-    "start": "node server.js"
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "npm start --prefix client",
+    "devStart": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [
     "Express",
