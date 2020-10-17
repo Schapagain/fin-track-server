@@ -20,13 +20,14 @@ router.get('/', async (req,res) => {
         transactions = getCleanTransactions(transactions);
         
         res.status(200).json({
-            message: 'You have all the transactions now.',
+            success: true,
             transactions,
         })
     }
     catch(err) {
         console.log(err);
         res.status(500).json({
+            success: false,
             error: 'Could not get all transactions. Try again later.'
         })
     }
@@ -45,6 +46,7 @@ router.post('/', async (req,res) => {
 
     if (!newTransaction.title || !newTransaction.amount){
         res.status(400).json({
+            success: false,
             error: "Title and amount are required"
         })
     }
@@ -62,13 +64,14 @@ router.post('/', async (req,res) => {
         transaction = getCleanTransactions(transaction).pop();
 
         res.status(200).json({
-            message: 'New transaction has been added.',
+            success: true,
             transaction,
         })
     }
     catch(err){
         console.log(err);
         res.status(500).json({
+            success: false,
             error: 'Could not add a new transaction. Try again later.'
         })
     }
