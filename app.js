@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
+const transactionRoutes = require('./routes/api/transactions');
 
 // Log request before processing them
 app.use(morgan('dev'));
@@ -9,7 +10,6 @@ app.use(morgan('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-const transactionRoutes = require('./routes/api/transaction');
-app.use('/transaction',transactionRoutes);
+app.use('/api/transactions',transactionRoutes);
 
 module.exports = app;
