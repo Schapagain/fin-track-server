@@ -44,17 +44,15 @@ router.post('/', async (req,res) => {
         amount: req.body.amount,
         category: req.body.category,
         type: req.body.type,
+        date: req.body.date,
     }
 
-    if (!newTransaction.title || !newTransaction.amount || !newTransaction.type || !newTransaction.category){
+    if (!newTransaction.title || !newTransaction.amount || !newTransaction.type || !newTransaction.category || !newTransaction.date){
         res.status(400).json({
             success: false,
-            error: "Title and amount are required"
+            error: "Please provide all required transaction properties"
         })
     }
-
-    // Add a date property if given
-    if (req.body.date) newTransaction.date = req.body.date;     
 
     // Replace newTransaction with mongoose model
     newTransaction = new Transaction(newTransaction);
