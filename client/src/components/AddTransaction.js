@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import moment from 'moment';
 import {Row,Input,Button} from 'reactstrap';
-
+import {v4 as uuid} from 'uuid';
 
 class AddTransaction extends Component {
 
@@ -34,7 +34,7 @@ class AddTransaction extends Component {
     }
     handleSubmit = event => {
         event.preventDefault();
-        this.props.handleNewTransaction(this.state);
+        this.props.handleNewTransaction({id: uuid(),...this.state});
     }
 
     render(){
