@@ -1,5 +1,5 @@
 
-
+const moment = require('moment');
 
 const getCleanTransactions = transactions => {
     
@@ -10,7 +10,7 @@ const getCleanTransactions = transactions => {
                 id: transaction._id,
                 amount: transaction.amount,
                 title: transaction.title,
-                date: transaction.date,
+                date: moment(transaction.date).format('YYYY-MM-DD'),
                 type: transaction.type,
             }
         })
