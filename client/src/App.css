@@ -7,24 +7,29 @@
 
 #main-panel{
   max-width: 600px;
-  height: 80vh;
+  height: 85vh;
   display: flex;
   flex-direction: column;
   background-color: rgb(66, 76, 167);
 }
 
 #transaction-list {
-  height: 100%;
+  height: 60%;
   overflow-y: auto;
   overflow-x: hidden;
+}
+
+.text-white{
   color: white;
 }
 
 input {
   text-align: center;
 }
+
 select {
   text-align-last: center;
+  text-align: center;
 }
 
 .transaction{
@@ -32,6 +37,11 @@ select {
   cursor: pointer;
 }
 
-.transaction:hover{
-  background-color: rgb(82, 91, 167);
+.fade-enter {
+  opacity: 0.01;
+}
+
+.fade-enter-active {
+  opacity: 1;
+  transition: opacity 1000ms ease-in;
 }
