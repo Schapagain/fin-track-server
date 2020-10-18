@@ -75,8 +75,6 @@ router.post('/', async (req,res) => {
             error: 'Could not add a new transaction. Try again later.'
         })
     }
-    
 })
-
 
 module.exports = router;

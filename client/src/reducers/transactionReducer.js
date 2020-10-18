@@ -1,24 +1,28 @@
 
-import {v4 as uuid} from 'uuid';
-import { GET_TRANSACTIONS, ADD_TRANSACTION } from '../actions/types';
+import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING } from '../actions/types';
 
 const initState = {
-    transactions: [
-        {id: uuid(), amount: '$14',title: 'La cena',category: "Food", date: '2020-10-10'},
-        {id: uuid(), amount: '$27',title: 'El almuerzo', category: "Food", date: '2020-10-12'}
-    ]
+    transactions: []
 }
 
 export default (state=initState, action) => {
     switch (action.type) {
         case GET_TRANSACTIONS:
             return {
-                ...state
+                ...state,
+                transactions: action.payload,
+                loading: false
             };
         case ADD_TRANSACTION:
             return {
+                ...state,
                 transactions: [action.payload,...state.transactions]
             };
+        case TRANSACTIONS_LOADING:
+            return {
+                ...state,
+                loading: true,
+            }
         default:
             return {
                 ...state
