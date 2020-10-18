@@ -42,6 +42,7 @@ router.post('/', async (req,res) => {
     let newTransaction = {
         title: req.body.title,
         amount: req.body.amount,
+        category: req.body.category,
     }
 
     if (!newTransaction.title || !newTransaction.amount){

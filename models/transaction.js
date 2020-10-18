@@ -11,7 +11,7 @@ const TransactionSchema = new Schema({
         required: true
     },
     date: {
-        type: Date,
+        type: String,
         default: moment().format("YYYY-MM-DD")
     },
     category: {

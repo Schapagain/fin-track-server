@@ -1,6 +1,5 @@
 import React,{Component} from 'react';
 import moment from 'moment';
-import {v4 as uuid} from 'uuid';
 import { addTransaction } from '../actions/transactionActions';
 import propTypes from 'prop-types';
 
@@ -41,12 +40,12 @@ class AddTransaction extends Component {
         event.preventDefault();
 
         const newTransaction = {
-            id: uuid(),
             amount: this.state.amount,
             title: this.state.title,
             category: this.state.category,
             date: this.state.date
         }
+        console.log(newTransaction)
 
         this.props.addTransaction(newTransaction);
     }

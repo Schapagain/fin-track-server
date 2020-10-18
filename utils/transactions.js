@@ -7,7 +7,7 @@ const getCleanTransactions = transactions => {
 
     return transactions.map( transaction => {
             return {
-                id: transaction.id,
+                id: transaction._id,
                 amount: transaction.amount,
                 title: transaction.title,
                 date: transaction.date,
