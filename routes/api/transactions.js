@@ -43,9 +43,10 @@ router.post('/', async (req,res) => {
         title: req.body.title,
         amount: req.body.amount,
         category: req.body.category,
+        type: req.body.type,
     }
 
-    if (!newTransaction.title || !newTransaction.amount){
+    if (!newTransaction.title || !newTransaction.amount || !newTransaction.type || !newTransaction.category){
         res.status(400).json({
             success: false,
             error: "Title and amount are required"

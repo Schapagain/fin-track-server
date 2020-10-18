@@ -8,7 +8,7 @@ import propTypes from 'prop-types';
 const Transaction = props => {
     const {transaction} = props;
     return(
-        <Row className="transaction">
+        <Row className={`transaction transaction-${transaction.type}`}>
             <div className="col-3">{transaction.date}</div>
             <div className="col-6">{transaction.title}</div>
             <div className="col-3">{'$'+transaction.amount}</div>

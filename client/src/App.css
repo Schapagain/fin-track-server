@@ -37,6 +37,13 @@ select {
   cursor: pointer;
 }
 
+.transaction-income {
+  color: green;
+}
+.transaction-expense {
+  color: rgb(226, 111, 111);
+}
+
 .fade-enter {
   opacity: 0.01;
 }

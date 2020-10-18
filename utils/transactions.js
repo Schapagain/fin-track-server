@@ -11,9 +11,9 @@ const getCleanTransactions = transactions => {
                 amount: transaction.amount,
                 title: transaction.title,
                 date: transaction.date,
+                type: transaction.type,
             }
         })
 }
-
 
 module.exports = {getCleanTransactions}

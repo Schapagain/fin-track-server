@@ -21,7 +21,7 @@
 
   * **Endpoint**: /api/transactions
   * **Method**: POST
-  * **Payload**: Transaction { amount, title, date, category }
+  * **Payload**: Transaction { amount, title, date, category, type }
   * **Response**: { success , transaction: Transaction } 
 
 2. View all transactions
