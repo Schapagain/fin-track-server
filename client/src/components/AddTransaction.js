@@ -1,83 +1,99 @@
 import React,{Component} from 'react';
 import moment from 'moment';
-import {Row,Input,Button} from 'reactstrap';
 import {v4 as uuid} from 'uuid';
+import { addTransaction } from '../actions/transactionActions';
+import propTypes from 'prop-types';
+
+import {
+    Button,
+    Modal,
+    ModalHeader,
+    ModalBody,
+    Form,
+    FormGroup,
+    Input,
+} from 'reactstrap';
+import { connect } from 'react-redux';
 
 class AddTransaction extends Component {
 
     state = {
+        modal: false,
         amount: "",
         title: "",
         category: "",
         date: moment().format("YYYY-MM-DD")
     }
 
-    handleAmountChange = event => {
+    handleToggle = () => {
         this.setState({
-            amount: event.target.value
+            modal: !this.state.modal
         })
     }
-    handleTitleChange = event => {
+
+    handleFormChange = event => {
         this.setState({
-            title: event.target.value
+            [event.target.name]: event.target.value
         })
     }
-    handleCategoryChange = event => {
-        this.setState({
-            category: event.target.value
-        })
-    }
-    handleDateChange = event => {
-        this.setState({
-            date: event.target.value
-        })
-    }
+
     handleSubmit = event => {
         event.preventDefault();
-        this.props.handleNewTransaction({id: uuid(),...this.state});
 
-        // Reset the state
-        this.setState({
-            amount: "",
-            title: "",
-            category: "",
-            date: moment().format("YYYY-MM-DD")
-        })
+        const newTransaction = {
+            id: uuid(),
+            amount: '$'+this.state.amount,
+            title: this.state.title,
+            category: this.state.category,
+            date: this.state.date
+        }
+
+        this.props.addTransaction(newTransaction);
     }
 
     render(){
         return(
-            <form onSubmit={this.handleSubmit} className="container p-5" action = '#'>
-                <Row className="justify-content-center mb-1">
-                    <Input onChange={this.handleAmountChange} className="col-10" id ="amount" value={this.state.amount} type="number" placeholder="Enter the amount" required/>
-                </Row>
-                <Row className="justify-content-center mb-1">
-                    <Input onChange={this.handleTitleChange} className="col-10" id ="title" value={this.state.title} type="text" placeholder="What was this about?" required/>
-                </Row>
-                <Row className="justify-content-center mb-1">
-                    <Input defaultValue="" onChange={this.handleCategoryChange} type="select" className="col-10 text-center" id ="category" required>
-                        <option value="" disabled>Pick a Category</option>
-                        <option value="Education">Education</option>
-                        <option value="Work">Work</option>
-                        <option value="Gadgets">Gadgets</option>
-                        <option value="Tutoring">Tutoring</option>
-                        <option value="Health and Fitness">Health and Fitness</option>
-                        <option value="Personal Care">Personal Care</option>
-                        <option value="Books">Books</option>
-                        <option value="Grocery">Grocery</option>
-                        <option value="Eat out">Eat out</option>
-                    </Input>
-                </Row>
-                <Row className="justify-content-center mb-1">
-                    <Input onChange={this.handleDateChange} className="col-10" id ="date" type="date" defaultValue={this.state.date}/>
-                </Row>
-                <Row className="justify-content-center">
-                    <Button className="col-4" type="submit">Save</Button>
-                </Row>
-            </form>
-        
+            <div>
+            <Button color="dark" onClick={this.handleToggle}>Add new transaction</Button>
+            <Modal isOpen={this.state.modal} toggle={this.handleToggle}>
+                <ModalHeader toggle={this.handleToggle}>Add a new Transaction</ModalHeader>
+                <ModalBody>
+                    <Form onSubmit={this.handleSubmit} className="p-5">
+                        <FormGroup>
+                            <Input onChange={this.handleFormChange} name ="amount" value={this.state.amount} type="number" placeholder="Enter the amount" required/>
+                            <Input onChange={this.handleFormChange} name ="title" value={this.state.title} type="text" placeholder="What was this about?" required/>
+                            <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="category" required>
+                                <option value="" disabled>Pick a Category</option>
+                                <option value="Education">Education</option>
+                                <option value="Work">Work</option>
+                                <option value="Gadgets">Gadgets</option>
+                                <option value="Tutoring">Tutoring</option>
+                                <option value="Health and Fitness">Health and Fitness</option>
+                                <option value="Personal Care">Personal Care</option>
+                                <option value="Books">Books</option>
+                                <option value="Grocery">Grocery</option>
+                                <option value="Eat out">Eat out</option>
+                            </Input>
+                            <Input className="mb-3" onChange={this.handleFormChange} name ="date" type="date" defaultValue={this.state.date}/>
+                            <div className="text-center">
+                                <Button className="col-6" type="submit">Save</Button>
+                            </div>
+                        </FormGroup>
+                    </Form>
+                </ModalBody>
+            </Modal>
+          </div>
         )
     }
 }
 
-export default AddTransaction;
+AddTransaction.propTypes = {
+    addTransaction: propTypes.func.isRequired,
+    transactionReducer: propTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    transactionReducer: state.transactionReducer
+});
+
+export default connect(mapStateToProps, { addTransaction })(AddTransaction);

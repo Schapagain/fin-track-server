@@ -1,13 +1,14 @@
 import React,{Component} from 'react';
 import { Container, ListGroup, ListGroupItem, Row } from 'reactstrap';
-import {v4 as uuid} from 'uuid';
-import AddTransaction from './AddTransaction';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
+import { connect } from 'react-redux';
+import { getTransactions } from '../actions/transactionActions';
+import propTypes from 'prop-types';
 
 const Transaction = props => {
     const {transaction} = props;
     return(
-        <Row className="transaction mb-1">
+        <Row className="transaction">
             <div className="col-3">{transaction.date}</div>
             <div className="col-6">{transaction.title}</div>
             <div className="col-3">{transaction.amount}</div>
@@ -16,29 +17,19 @@ const Transaction = props => {
 }
 
 class TransactionList extends Component {
-    state={
-        transactions: [
-            {id: uuid(), amount: '$14',title: 'La cena',category: "Food", date: '2020-10-10'},
-            {id: uuid(), amount: '$23',title: 'El almuerzo', category: "Education", date: '2020-10-12'}
-        ]
-    }
 
-    handleNewTransaction = state => {
-        this.setState({
-            transactions: [state,...this.state.transactions]
-        })
+    componentDidMount() {
+        this.props.getTransactions();
     }
 
     render(){
+        const { transactions } = this.props.transactionReducer;
         return (
-            <Container  id="main-panel">
-                <Row id = "add-transaction">
-                    <AddTransaction handleNewTransaction={this.handleNewTransaction}/>
-                </Row>
+            <Container id="main-panel">
                 <p className="text-center text-white"><u>Posted Transactions</u></p>
-                <ListGroup id="transaction-list" className="mb-3">
+                <ListGroup id="transaction-list">
                     <TransitionGroup>
-                        {this.state.transactions.map(transaction => (
+                        {transactions.map(transaction => (
                             <CSSTransition key={transaction.id} timeout={500} classNames="fade">
                                 <ListGroupItem>
                                     <Transaction transaction={transaction}/>
@@ -52,4 +43,13 @@ class TransactionList extends Component {
     }
 }
 
-export default TransactionList;
+TransactionList.propTypes = {
+    getTransactions: propTypes.func.isRequired,
+    transactionReducer: propTypes.object.isRequired
+}
+
+const mapStateToProps = state => ({
+    transactionReducer: state.transactionReducer
+});
+
+export default connect(mapStateToProps, { getTransactions })(TransactionList);

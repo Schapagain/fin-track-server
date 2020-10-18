@@ -4,12 +4,22 @@ import './App.css';
 import AppNavbar from './components/AppNavbar';
 import TransactionList from './components/TransactionList';
 
+import { Provider } from 'react-redux';
+import store from './store';
+import AddTransaction from './components/AddTransaction';
+import { Container } from 'reactstrap';
+
 function App() {
   return (
-    <div className="App">
-      <AppNavbar />
-      <TransactionList />
-    </div>
+    <Provider store = {store}>
+      <div className="App">
+        <AppNavbar />
+        <Container>
+          <AddTransaction />
+          <TransactionList />
+        </Container>
+      </div>
+    </Provider>
   );
 }
 

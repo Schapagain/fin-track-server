@@ -6,15 +6,11 @@
 }
 
 #main-panel{
-  max-width: 600px;
-  height: 85vh;
-  display: flex;
-  flex-direction: column;
-  background-color: rgb(66, 76, 167);
+  height: 80vh;
 }
 
 #transaction-list {
-  height: 60%;
+  height: 90%;
   overflow-y: auto;
   overflow-x: hidden;
 }
@@ -36,6 +32,7 @@ select {
   text-align: center;
   cursor: pointer;
 }
+
 
 .fade-enter {
   opacity: 0.01;
