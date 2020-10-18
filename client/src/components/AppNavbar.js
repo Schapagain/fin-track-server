@@ -26,7 +26,7 @@ class AppNavbar extends Component {
         return(
             <Navbar color="dark" dark expand="sm" className="mb-5">
                 <Container>
-                    <NavbarBrand className="text-center" href="/">Finance Tracker</NavbarBrand>
+                    <NavbarBrand className="navbar" href="#"><img src={require("./logo.png")} alt=""></img></NavbarBrand>
                     <NavbarToggler onClick={this.toggle} />
                     <Collapse isOpen={this.state.isOpen} navbar>
                     <Nav className="ml-auto" navbar>
