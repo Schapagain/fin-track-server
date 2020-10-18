@@ -1,6 +1,5 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const moment = require('moment');
 const TransactionSchema = new Schema({
     amount: {
         type: Number,
@@ -11,8 +10,8 @@ const TransactionSchema = new Schema({
         required: true
     },
     date: {
-        type: String,
-        default: moment().format("YYYY-MM-DD")
+        type: Date,
+        required: true
     },
     category: {
         type: String,
