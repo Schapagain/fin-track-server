@@ -14,7 +14,7 @@ const Transaction = require('../../models/transaction');
 router.get('/', async (req,res) => {
 
     try{
-        let transactions = await Transaction.find();
+        let transactions = await Transaction.find({}).sort('-date');
 
         // Clean up Transactions before responding
         transactions = getCleanTransactions(transactions);
