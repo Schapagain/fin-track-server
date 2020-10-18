@@ -11,7 +11,7 @@ const Transaction = props => {
         <Row className="transaction">
             <div className="col-3">{transaction.date}</div>
             <div className="col-6">{transaction.title}</div>
-            <div className="col-3">{transaction.amount}</div>
+            <div className="col-3">{'$'+transaction.amount}</div>
         </Row>
     )
 }

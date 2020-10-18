@@ -42,7 +42,7 @@ class AddTransaction extends Component {
 
         const newTransaction = {
             id: uuid(),
-            amount: '$'+this.state.amount,
+            amount: this.state.amount,
             title: this.state.title,
             category: this.state.category,
             date: this.state.date
