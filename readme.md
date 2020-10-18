@@ -1,21 +1,5 @@
 
-## # Configuration
-  > Note: all commands are run in the root directory
-  * Install server-side dependencies<br/>
-    ```
-      npm install
-    ```
-  * Install client-side dependencies
-    ```
-      npm run client-install
-    ```
-  * Run on default ports
-    ```
-      npm run server
-      npm run client
-    ```
-
-## # Usage via HTTP
+# Guide to the backend API
 
 1. Add a new transaction
 
