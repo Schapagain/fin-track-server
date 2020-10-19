@@ -53,7 +53,7 @@ class AddTransaction extends Component {
     render(){
         return(
             <div>
-            <Button color="dark" onClick={this.handleToggle}>Add new transaction</Button>
+            <Button color="dark" className="mb-3" onClick={this.handleToggle}>Add new transaction</Button>
             <Modal isOpen={this.state.modal} toggle={this.handleToggle}>
                 <ModalHeader toggle={this.handleToggle}>Add a new Transaction</ModalHeader>
                 <ModalBody>

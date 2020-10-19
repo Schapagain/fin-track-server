@@ -1,5 +1,5 @@
 import React,{Component} from 'react';
-import { Container, ListGroup, ListGroupItem, Row } from 'reactstrap';
+import { ListGroup, ListGroupItem, Row } from 'reactstrap';
 import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getTransactions } from '../actions/transactionActions';
@@ -25,8 +25,7 @@ class TransactionList extends Component {
     render(){
         const { transactions } = this.props.transactionReducer;
         return (
-            <Container id="main-panel">
-                <p className="text-center text-white"><u>Posted Transactions</u></p>
+            <div id="main-panel">
                 <ListGroup id="transaction-list">
                     <TransitionGroup>
                         {transactions.map(transaction => (
@@ -38,7 +37,7 @@ class TransactionList extends Component {
                         ))}
                     </TransitionGroup>
                 </ListGroup>
-            </Container>
+            </div>
         )
     }
 }

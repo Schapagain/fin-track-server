@@ -29,7 +29,7 @@ export const getCumulativeAmountsForCurrentMonth = transactions => {
 
     // Find cumulative amounts for all such days
     const cumulativeAmounts = [...amounts.values()].map((sum => value => sum += value)(0))
-    return { days: [...amounts.keys()], amounts: cumulativeAmounts}
+    return { days: [...amounts.keys()], amounts: cumulativeAmounts, month: moment().format('MMMM')}
 }
 
 const _getSignedAmount = transaction => {

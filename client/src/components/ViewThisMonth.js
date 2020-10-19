@@ -3,12 +3,6 @@ import { getTransactions } from '../actions/transactionActions';
 import propTypes from 'prop-types';
 import Plot from 'react-plotly.js';
 import { getCumulativeAmountsForCurrentMonth } from '../utils';
-import {
-    Button,
-    Modal,
-    ModalHeader,
-    ModalBody,
-} from 'reactstrap';
 import { connect } from 'react-redux';
 
 class ViewThisMonth extends Component {
@@ -32,29 +26,26 @@ class ViewThisMonth extends Component {
 
     render(){
         const { transactions } = this.props.transactionReducer;
-        const {days, amounts} = getCumulativeAmountsForCurrentMonth(transactions);
+        const {days, amounts, month} = getCumulativeAmountsForCurrentMonth(transactions);
         return(
             <div>
-                <Button color="dark" onClick={this.handleToggle}>View this month</Button>
-                <Modal className="modal-lg" isOpen={this.state.modal} toggle={this.handleToggle}>
-                    <ModalHeader toggle={this.handleToggle}>Transactions this month</ModalHeader>
-                    <ModalBody>
-                    <Plot
-                        data={[
-                        {type: 'scatter', x: days, y: amounts},
-                        ]}
-                        layout={{
-                            xaxis: {
-                                title: {text: 'Days'}
-                            },
-                            yaxis: {
-                                title: {text: 'Net transaction amounts ($)'}
-                            }
-                        }}
-                        config={{displayModeBar:false,responsive:true}}
-                    />
-                    </ModalBody>
-                </Modal>
+                <Plot style={{width: '100%',height: '100%'}}
+                    data={[
+                    {type: 'scatter', x: days, y: amounts},
+                    ]}
+                    layout={{
+                        autosize: true,
+                        title: {text: 'Your activity in '.concat(month)},
+                        xaxis: {
+                            title: {text: 'Days'}
+                        },
+                        yaxis: {
+                            title: {text: 'Net transaction amounts ($)'}
+                        }
+                    }}
+                    config={{displayModeBar:false,responsive:true}}
+                    useResizeHandler={true}
+                />
           </div>
         );
     }
