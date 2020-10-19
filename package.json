@@ -25,7 +25,8 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "moment": "^2.29.1",
-    "mongoose": "^5.10.9"
+    "mongoose": "^5.10.9",
+    "njwt": "^1.0.0"
   },
   "devDependencies": {
     "morgan": "^1.10.0",
