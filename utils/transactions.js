@@ -1,6 +1,4 @@
 
-const moment = require('moment');
-
 const getCleanTransactions = transactions => {
     
     if (!Array.isArray(transactions)) transactions = [transactions]
@@ -10,7 +8,7 @@ const getCleanTransactions = transactions => {
                 id: transaction._id,
                 amount: transaction.amount,
                 title: transaction.title,
-                date: moment(transaction.date).format('YYYY-MM-DD'),
+                date: transaction.date,
                 type: transaction.type,
             }
         })
