@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middlewares/auth');
 
 // Import utilities
 const {getCleanTransactions} = require('../../utils/transactions')
@@ -7,14 +8,13 @@ const {getCleanTransactions} = require('../../utils/transactions')
 // Import the transaction model
 const Transaction = require('../../models/transaction');
 
-
 // @route   GET api/transaction
 // @desc    GET all transactions
-// @access  Public
-router.get('/', async (req,res) => {
+// @access  Private
+router.get('/', auth, async (req,res) => {
 
     try{
-        let transactions = await Transaction.find({}).sort('-date');
+        let transactions = await Transaction.find({userid: req.id}).sort('-date');
 
         // Clean up Transactions before responding
         transactions = getCleanTransactions(transactions);
@@ -36,26 +36,20 @@ router.get('/', async (req,res) => {
 
 // @route   POST api/transaction
 // @desc    Add a new transaction
-// @access  Public
-router.post('/', async (req,res) => {
+// @access  Private
+router.post('/', auth, async (req,res) => {
 
-    let newTransaction = {
-        title: req.body.title,
-        amount: req.body.amount,
-        category: req.body.category,
-        type: req.body.type,
-        date: req.body.date,
-    }
+    const {title,amount,category,type,date} = req.body;
 
-    if (!newTransaction.title || !newTransaction.amount || !newTransaction.type || !newTransaction.category || !newTransaction.date){
-        res.status(400).json({
+    if (!title || !amount || !type || !category || !date){
+        return res.status(400).json({
             success: false,
             error: "Please provide all required transaction properties"
         })
     }
 
     // Replace newTransaction with mongoose model
-    newTransaction = new Transaction(newTransaction);
+    const newTransaction = new Transaction({userid:req.id,title,amount,category,type,date});
 
     try{
         let transaction = await newTransaction.save();
@@ -63,14 +57,14 @@ router.post('/', async (req,res) => {
         // Clean up Transactions before responding
         transaction = getCleanTransactions(transaction).pop();
 
-        res.status(200).json({
+        return res.status(200).json({
             success: true,
             transaction,
         })
     }
     catch(err){
         console.log(err);
-        res.status(500).json({
+        return res.status(500).json({
             success: false,
             error: 'Could not add a new transaction. Try again later.'
         })
