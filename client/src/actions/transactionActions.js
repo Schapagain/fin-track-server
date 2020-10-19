@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getPrettyDate } from '../utils';
 import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING} from './types';
 
 export const getTransactions = () => async dispatch => {
@@ -7,7 +8,7 @@ export const getTransactions = () => async dispatch => {
         const result = await axios.get('/api/transactions');
         dispatch({
             type: GET_TRANSACTIONS,
-            payload: result.data.transactions
+            payload: result.data.transactions.map(transaction => getPrettyDate(transaction))
         })
     }
     catch(err){
@@ -21,7 +22,7 @@ export const addTransaction = transaction => async dispatch => {
         const result = await axios.post('/api/transactions',transaction);
         dispatch({
             type: ADD_TRANSACTION,
-            payload: result.data.transaction
+            payload: getPrettyDate(result.data.transaction)
         })
     }
     catch(err){
