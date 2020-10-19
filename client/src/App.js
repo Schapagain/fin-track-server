@@ -7,6 +7,7 @@ import TransactionList from './components/TransactionList';
 import { Provider } from 'react-redux';
 import store from './store';
 import AddTransaction from './components/AddTransaction';
+import ViewThisMonth from './components/ViewThisMonth';
 import { Container } from 'reactstrap';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <AppNavbar />
         <Container>
           <AddTransaction />
+          <ViewThisMonth />
           <TransactionList />
         </Container>
       </div>
