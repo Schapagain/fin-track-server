@@ -43,11 +43,6 @@ class ViewThisMonth extends Component {
                         data={[
                         {type: 'scatter', x: days, y: amounts},
                         ]}
-                        labels={{
-                            "sepal_length": "Sepal Length (cm)",
-                            "sepal_width": "Sepal Width (cm)",
-                            "species": "Species of Iris"
-                        }}
                         layout={{
                             xaxis: {
                                 title: {text: 'Days'}
