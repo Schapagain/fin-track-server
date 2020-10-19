@@ -1,9 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./app');
 
-// DB configuration
-const db = require('./config/db').mongoURI;
-
 // Connect to the database
 const mongoURI = `mongodb+srv://sandesh:${Process.env.DBPASSWORD}@mongo-aws.bav9k.mongodb.net/myDb?retryWrites=true&w=majority`;
 mongoose
