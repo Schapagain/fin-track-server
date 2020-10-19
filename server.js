@@ -5,8 +5,9 @@ const app = require('./app');
 const db = require('./config/db').mongoURI;
 
 // Connect to the database
+const mongoURI = `mongodb+srv://sandesh:${Process.env.DBPASSWORD}@mongo-aws.bav9k.mongodb.net/myDb?retryWrites=true&w=majority`;
 mongoose
-    .connect(db,{ useNewUrlParser: true,useUnifiedTopology: true })
+    .connect(mongoURI,{ useNewUrlParser: true,useUnifiedTopology: true })
     .then(() => {console.log('Connected to MongoDB')})
     .catch( err => console.log(err))
 
