@@ -2,6 +2,7 @@
 const express = require('express');
 const router = express.Router();
 const bcrypt = require('bcrypt');
+const { getAuthToken } = require('../../utils/authorization');
 
 // Import the user model
 const User = require('../../models/user');
@@ -14,6 +15,7 @@ router.post('/', async (req,res) => {
 
     let {name,email,password} = req.body;
 
+    // Check if all fields are given
     if (!name || !email || !password){
         return res.status(400).json({
             success: false,
@@ -21,8 +23,8 @@ router.post('/', async (req,res) => {
         })
     }
 
-    // Check if the user already exists
     try{
+        // Check if the user already exists
         let oldUser = await User.findOne({ email })
         if (oldUser) {
             return res.status(400).json({
@@ -30,35 +32,27 @@ router.post('/', async (req,res) => {
                 error: "Email has already been registered"
             })
         }
-    }
-    catch(err){
-        return sendServerError(err,res);
-    }
 
-    // Hash the password to store in the database
-    try{
+        // Save user with a hashed password
         password = await generatePasswordHash(password);
-    }
-    catch(err){
-        return sendServerError(err,res);
-    }
-
-    // create a mongoose model for the new user
-    let newUser = new User({name,email,password});
-
-    try{
+        let newUser = new User({name,email,password});
         let user = await newUser.save();
 
-        // Clean up Transactions before sending the user back
+        // Clean up User and assign token before sending the user back
+        const token = getAuthToken(user.id);
         user = getCleanUsers(user).pop();
-
         res.status(200).json({
             success: true,
             user,
+            token,
         })
     }
     catch(err){
-        return sendServerError(err,res);
+        console.log(err);
+        return res.status(500).json({
+            success: false,
+            error: 'Could not add a new user. Try again later.'
+        })
     }
 })
 
@@ -72,13 +66,4 @@ const generatePasswordHash = async passwordPlain => {
         throw err;
     }
 }
-
-const sendServerError = (err,res) => {
-    console.log(err);
-    res.status(500).json({
-        success: false,
-        error: 'Could not add a new user. Try again later.'
-    })
-}
-
 module.exports = router;
