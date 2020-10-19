@@ -4,14 +4,9 @@ const getCleanTransactions = transactions => {
     if (!Array.isArray(transactions)) transactions = [transactions]
 
     return transactions.map( transaction => {
-            return {
-                id: transaction._id,
-                amount: transaction.amount,
-                title: transaction.title,
-                date: transaction.date,
-                type: transaction.type,
-            }
-        })
+        let {id,amount,title,date,type} = transaction;
+            return {id,amount,title,date,type}
+    })
 }
 
 module.exports = {getCleanTransactions}
