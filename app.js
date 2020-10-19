@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const transactionRoutes = require('./routes/api/transactions');
 const path = require('path');
 
 // Body parser
@@ -21,7 +20,8 @@ app.use((req,res,next) => {
 });
 
 // Serve API routes
-app.use('/api/transactions',transactionRoutes);
+app.use('/api/transactions',require('./routes/api/transactions'));
+app.use('/api/users',require('./routes/api/users'));
 
 // Serve static content in production
 if(process.env.NODE_ENV == "production") {
