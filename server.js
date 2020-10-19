@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const app = require('./app');
-
+require('dotenv').config();
 // Connect to the database
 const mongoURI = `mongodb+srv://sandesh:${process.env.DBPASSWORD}@mongo-aws.bav9k.mongodb.net/myDb?retryWrites=true&w=majority`;
 mongoose
