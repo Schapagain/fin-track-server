@@ -6,8 +6,9 @@ const localPrefix = 'http://localhost:5000';
 
 export const getTransactions = () => async (dispatch,getState) => {
     dispatch(setTransactionsLoading());
+    const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
     try{
-        const result = await axios.get(localPrefix+'/api/transactions',getTokenConfig(getState));
+        const result = await axios.get(endpoint,getTokenConfig(getState));
         dispatch({
             type: GET_TRANSACTIONS,
             payload: result.data.transactions.map(transaction => getPrettyDate(transaction))
@@ -20,8 +21,9 @@ export const getTransactions = () => async (dispatch,getState) => {
 
 export const addTransaction = transaction => async (dispatch,getState) => {
     
+    const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
     try{
-        const result = await axios.post(localPrefix + '/api/transactions',transaction,getTokenConfig(getState));
+        const result = await axios.post(endpoint,transaction,getTokenConfig(getState));
         dispatch({
             type: ADD_TRANSACTION,
             payload: getPrettyDate(result.data.transaction)

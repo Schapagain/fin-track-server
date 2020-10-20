@@ -17,8 +17,9 @@ export const loadUser = () => async (dispatch,getState) => {
 
     dispatch({type: USER_LOADING});
 
+    const endpoint = process.env.NODE_ENV === "production"? '/api/auth/user':localPrefix+'/api/auth/user';
     try{
-        const result = await axios.get(localPrefix+'/api/auth/user', getTokenConfig(getState));
+        const result = await axios.get(endpoint, getTokenConfig(getState));
         dispatch({
             type: USER_LOADED,
             payload: result.data
@@ -36,8 +37,9 @@ export const registerUser = ({ name, email, password}) => async dispatch => {
     const config = {headers: {"Content-type":"application/json"}};
     const body = JSON.stringify({name, email, password});
 
+    const endpoint = process.env.NODE_ENV === "production"? '/api/users':localPrefix+'/api/users';
     try{
-        const result = await axios.post(localPrefix+'/api/users/',body,config);
+        const result = await axios.post(endpoint,body,config);
         dispatch({
             type: REGISTER_SUCCESS,
             payload: result.data,
@@ -53,9 +55,9 @@ export const registerUser = ({ name, email, password}) => async dispatch => {
 export const loginUser = ({ email, password}) => async dispatch => {
     const config = {headers: {"Content-type":"application/json"}};
     const body = JSON.stringify({email, password});
-
+    const endpoint = process.env.NODE_ENV === "production"? '/api/auth/':localPrefix+'/api/auth/';
     try{
-        const result = await axios.post(localPrefix+'/api/auth/',body,config);
+        const result = await axios.post(endpoint,body,config);
         dispatch({
             type: LOGIN_SUCCESS,
             payload: result.data,
