@@ -20,10 +20,10 @@ class MainContainer extends Component {
             </Row>
             <Row className="pb-3">
               <Col xs="12" sm="12" md="12" lg="6">
-                <TransactionList />
+                {this.props.transactions.length? <TransactionList transactions={this.props.transactions}/> : null}
               </Col>
               <Col xs="12" sm="12" md="12" lg="6">
-                <ViewThisMonth />
+              {this.props.transactions.length? <ViewThisMonth />: null}
               </Col>
             </Row>
           </Container>
@@ -46,11 +46,13 @@ class MainContainer extends Component {
 }
 
 MainContainer.propTypes = {
-  auth: propTypes.object.isRequired
+  auth: propTypes.object.isRequired,
+  transactions: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-  auth: state.authReducer
+  auth: state.authReducer,
+  transactions: state.transactionReducer
 });
 
 export default connect(mapStateToProps,{})(MainContainer);
