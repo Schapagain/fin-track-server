@@ -4,7 +4,7 @@ export const getPrettyDate = transaction =>{
     return {
         ...transaction,
         dateObj: transaction.date,
-        date: moment(transaction.date).format('MMM Do YY')
+        date: moment.utc(transaction.date).format('MMM Do YY')
     }
 }
 
@@ -15,21 +15,21 @@ export const getCumulativeAmountsForCurrentMonth = transactions => {
     // Note: API returns in descending order
     transactions = 
     transactions
-        .filter( transaction => moment(transaction.dateObj).month() === moment().month())
-        .map( transaction => ({day: moment(transaction.dateObj).date(), type: transaction.type, amount: transaction.amount, dateObj: transaction.dateObj}))
+        .filter( transaction => moment.utc(transaction.dateObj).month() === moment.utc().month())
+        .map( transaction => ({type: transaction.type, amount: transaction.amount, dateObj: transaction.dateObj}))
         .reverse()
     
     // Sum up transactions for each day where at least one transaction has occured
     let amounts = new Map();
     for (let transaction of transactions){
         const currentAmount = _getSignedAmount(transaction);
-        const currentDay = moment(transaction.dateObj).format('Do');
+        const currentDay = moment.utc(transaction.dateObj).format('Do');
         amounts.has(currentDay)? amounts.set(currentDay,amounts.get(currentDay) + currentAmount) : amounts.set(currentDay,currentAmount);
     }
 
     // Find cumulative amounts for all such days
     const cumulativeAmounts = [...amounts.values()].map((sum => value => sum += value)(0))
-    return { days: [...amounts.keys()], amounts: cumulativeAmounts, month: moment().format('MMMM')}
+    return { days: [...amounts.keys()], amounts: cumulativeAmounts, month: moment.utc().format('MMMM')}
 }
 
 const _getSignedAmount = transaction => {
