@@ -2,7 +2,8 @@
 import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING } from '../actions/types';
 
 const initState = {
-    transactions: []
+    transactions: [],
+    loading: false
 }
 
 export default (state=initState, action) => {
