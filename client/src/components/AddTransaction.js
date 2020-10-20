@@ -20,7 +20,7 @@ class AddTransaction extends Component {
         amount: "",
         title: "",
         category: "",
-        type: "expense",
+        type: "",
         date: moment().format("YYYY-MM-DD")
     }
 
@@ -51,6 +51,37 @@ class AddTransaction extends Component {
     }
 
     render(){
+
+        const incomeCategories = (
+            <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="category" required>
+                            <option value="" disabled>Pick a Category</option>
+                            <option value="Salary">Work</option>
+                            <option value="Freelancing">Freelancing</option>
+                            <option value="Teaching and Tutoring">Teaching and tutoring</option>
+            </Input>
+        );
+
+        const expenseCategories = (
+            <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="category" required>
+                            <option value="" disabled>Pick a Category</option>
+                            <option value="Education">Education</option>
+                            <option value="Gadgets">Gadgets</option>
+                            <option value="Health and Fitness">Health and Fitness</option>
+                            <option value="Personal Care">Personal Care</option>
+                            <option value="Bills and Utilities">Bills and Utilities</option>
+                            <option value="Books">Books</option>
+                            <option value="Grocery">Grocery</option>
+                            <option value="Eat Out">Eat out</option>
+            </Input>
+        );
+
+        const noneCategories = (
+            <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="category" required>
+                <option value="" disabled>Pick a transaction type first</option>
+            </Input>           
+        );
+
+
         return(
             <div>
             <Button color="dark" className="mb-3" onClick={this.handleToggle}>Add new transaction</Button>
@@ -66,19 +97,7 @@ class AddTransaction extends Component {
                             <option value="income">Income</option>
                             <option value="expense">Expense</option>
                         </Input>
-                        
-                        <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="category" required>
-                            <option value="" disabled>Pick a Category</option>
-                            <option value="Education">Education</option>
-                            <option value="Work">Work</option>
-                            <option value="Gadgets">Gadgets</option>
-                            <option value="Tutoring">Tutoring</option>
-                            <option value="Health and Fitness">Health and Fitness</option>
-                            <option value="Personal Care">Personal Care</option>
-                            <option value="Books">Books</option>
-                            <option value="Grocery">Grocery</option>
-                            <option value="Eat out">Eat out</option>
-                        </Input>
+                        {this.state.type === ""? noneCategories: this.state.type === 'income'? incomeCategories:expenseCategories}
                         <Input className="mb-3" onChange={this.handleFormChange} name ="date" type="date" defaultValue={this.state.date}/>
                         <div className="text-center">
                             <Button className="col-6" type="submit">Save</Button>
