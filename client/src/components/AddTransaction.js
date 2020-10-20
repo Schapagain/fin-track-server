@@ -58,6 +58,7 @@ class AddTransaction extends Component {
                             <option value="Salary">Work</option>
                             <option value="Freelancing">Freelancing</option>
                             <option value="Teaching and Tutoring">Teaching and tutoring</option>
+                            <option value="Refunds">Refunds</option>
             </Input>
         );
 
