@@ -23,7 +23,7 @@ class TransactionList extends Component {
     }
 
     render(){
-        const { transactions } = this.props.transactionReducer;
+        const { transactions } = this.props.transactions;
         return (
             <div id="main-panel">
                 <ListGroup id="transaction-list">
@@ -44,11 +44,7 @@ class TransactionList extends Component {
 
 TransactionList.propTypes = {
     getTransactions: propTypes.func.isRequired,
-    transactionReducer: propTypes.object.isRequired
+    transactions: propTypes.object.isRequired
 }
 
-const mapStateToProps = state => ({
-    transactionReducer: state.transactionReducer
-});
-
-export default connect(mapStateToProps, { getTransactions })(TransactionList);
+export default connect(null, { getTransactions })(TransactionList);
