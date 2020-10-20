@@ -11,7 +11,9 @@ import {
     Form,
     Input,
     NavLink,
-    Alert
+    Alert,
+    FormGroup,
+    Label,
 } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -74,8 +76,14 @@ class LoginUser extends Component {
                     <ModalBody>
                         { this.state.message? <Alert color="danger">{this.state.message}</Alert>: null}
                         <Form onSubmit={this.handleSubmit} className="p-5">
-                            <Input onChange={this.handleFormChange} name ="email" value={this.state.email} type="text" placeholder="Enter your email" required/>
-                            <Input onChange={this.handleFormChange} name ="password" value={this.state.password} type="password" placeholder="Pick a password" required/>
+                            <FormGroup>
+                                <Label >Email: </Label>
+                                <Input onChange={this.handleFormChange} name ="email" value={this.state.email} type="text" placeholder="Enter your email" required/>
+                            </FormGroup>
+                            <FormGroup>
+                                <Label> Password: </Label>
+                                <Input onChange={this.handleFormChange} name ="password" value={this.state.password} type="password" placeholder="Enter your password" required/>
+                            </FormGroup>
                             <div className="text-center">
                                 <Button className="col-6" type="submit">Login</Button>
                             </div>
