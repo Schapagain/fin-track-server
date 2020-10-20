@@ -10,6 +10,8 @@ import {
     ModalBody,
     Form,
     Input,
+    InputGroup,
+    InputGroupAddon
 } from 'reactstrap';
 import { connect } from 'react-redux';
 
@@ -73,6 +75,7 @@ class AddTransaction extends Component {
                             <option value="Books">Books</option>
                             <option value="Grocery">Grocery</option>
                             <option value="Eat Out">Eat out</option>
+                            <option value="Miscellaneous">Miscellaneous</option>
             </Input>
         );
 
@@ -90,7 +93,10 @@ class AddTransaction extends Component {
                 <ModalHeader toggle={this.handleToggle}>Add a new Transaction</ModalHeader>
                 <ModalBody>
                     <Form onSubmit={this.handleSubmit} className="p-5">
-                        <Input onChange={this.handleFormChange} name ="amount" value={this.state.amount} type="number" placeholder="Enter the amount" required/>
+                        <InputGroup>
+                            <InputGroupAddon addonType="prepend">$</InputGroupAddon>
+                            <Input onChange={this.handleFormChange} name ="amount" value={this.state.amount} type="number" placeholder="Enter the amount" required />
+                        </InputGroup>
                         <Input onChange={this.handleFormChange} name ="title" value={this.state.title} type="text" placeholder="What was this about?" required/>
 
                         <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="type" required>
