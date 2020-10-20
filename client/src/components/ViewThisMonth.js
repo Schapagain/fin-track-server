@@ -29,7 +29,7 @@ class ViewThisMonth extends Component {
         const {days, amounts, month} = getCumulativeAmountsForCurrentMonth(transactions);
         return(
             <div>
-                <Plot style={{width: '100%',height: '100%'}}
+                {amounts.length? <Plot style={{width: '100%',height: '100%'}}
                     data={[
                     {type: 'scatter', x: days, y: amounts},
                     ]}
@@ -45,7 +45,7 @@ class ViewThisMonth extends Component {
                     }}
                     config={{displayModeBar:false,responsive:true}}
                     useResizeHandler={true}
-                />
+                /> : <h1>You have no activity this month</h1>}
           </div>
         );
     }
