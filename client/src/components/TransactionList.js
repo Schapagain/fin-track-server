@@ -18,10 +18,6 @@ const Transaction = props => {
 
 class TransactionList extends Component {
 
-    componentDidMount() {
-        this.props.getTransactions();
-    }
-
     render(){
         const { transactions } = this.props.transactions;
         return (
@@ -47,4 +43,8 @@ TransactionList.propTypes = {
     transactions: propTypes.object.isRequired
 }
 
-export default connect(null, { getTransactions })(TransactionList);
+const mapStateToProps = state => ({
+    transactions: state.transactionReducer
+});
+
+export default connect(mapStateToProps, { getTransactions })(TransactionList);
