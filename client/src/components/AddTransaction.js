@@ -75,6 +75,7 @@ class AddTransaction extends Component {
                             <option value="Books">Books</option>
                             <option value="Grocery">Grocery</option>
                             <option value="Eat Out">Eat out</option>
+                            <option value="Alcohol">Alcohol</option>
                             <option value="Miscellaneous">Miscellaneous</option>
             </Input>
         );
