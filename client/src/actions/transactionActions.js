@@ -1,14 +1,20 @@
 import axios from 'axios';
 import { getPrettyDate } from '../utils';
-import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING} from './types';
+import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING } from './types';
 import {getTokenConfig} from './authActions';
 const localPrefix = 'http://localhost:5000';
 
 export const getTransactions = () => async (dispatch,getState) => {
     dispatch(setTransactionsLoading());
     const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
+    const config = getTokenConfig(getState);
+
+    const startDate = getState().dateReducer.startDate;
+    const endDate = getState().dateReducer.endDate;
+    config.params= {startDate,endDate};
+
     try{
-        const result = await axios.get(endpoint,getTokenConfig(getState));
+        const result = await axios.get(endpoint,config);
         dispatch({
             type: GET_TRANSACTIONS,
             payload: result.data.transactions.map(transaction => getPrettyDate(transaction))
