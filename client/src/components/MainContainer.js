@@ -12,10 +12,6 @@ import { getTransactions } from '../actions/transactionActions';
 
 class MainContainer extends Component {
 
-  componentDidMount(){
-    this.props.getTransactions();
-  }
-
   render(){
     const {isAuthenticated} = this.props.auth;
     const authContainer = (
