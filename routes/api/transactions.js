@@ -1,6 +1,8 @@
 const express = require('express');
 const router = express.Router();
 const auth = require('../../middlewares/auth');
+const moment = require('moment');
+const queryString = require('querystring');
 
 // Import utilities
 const {getCleanTransactions} = require('../../utils/transactions')
@@ -13,8 +15,9 @@ const Transaction = require('../../models/transaction');
 // @access  Private
 router.get('/', auth, async (req,res) => {
 
+    const {startDate:$gte,endDate:$lte} = req.query? req.query:{startDate: moment(0).utc(), endDate: moment().utc()};
     try{
-        let transactions = await Transaction.find({userid: req.id}).sort('-date');
+        let transactions = await Transaction.find({userid: req.id, date:{ $gte,$lte}}).sort('-date');
 
         // Clean up Transactions before responding
         transactions = getCleanTransactions(transactions);
