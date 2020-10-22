@@ -15,7 +15,6 @@ export const getCumulativeAmountsForCurrentMonth = transactions => {
     // Note: API returns in descending order
     transactions = 
     transactions
-        .filter( transaction => moment.utc(transaction.dateObj).month() === moment.utc().month())
         .map( transaction => ({type: transaction.type, amount: transaction.amount, dateObj: transaction.dateObj}))
         .reverse()
     
