@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import TransactionList from './TransactionList';
 import AddTransaction from './AddTransaction';
 import ViewThisMonth from './ViewThisMonth';
+import PickDateRange from './PickDateRange';
 import { Container, Row, Col } from 'reactstrap';
 
 import { connect } from 'react-redux';
@@ -11,10 +12,9 @@ import { getTransactions } from '../actions/transactionActions';
 
 class MainContainer extends Component {
 
-  componentDidUpdate() {
+  componentDidMount(){
     this.props.getTransactions();
   }
-
 
   render(){
     const {isAuthenticated} = this.props.auth;
@@ -22,6 +22,9 @@ class MainContainer extends Component {
       <Container>
             <Row>
               <AddTransaction />
+            </Row>
+            <Row>
+              <PickDateRange />
             </Row>
             <Row className="pb-3">
               <Col xs="12" sm="12" md="12" lg="6">
