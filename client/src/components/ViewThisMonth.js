@@ -13,11 +13,6 @@ class ViewThisMonth extends Component {
         amounts: [],
     }
 
-    componentDidMount() {
-        this.props.getTransactions();
-
-    }
-
     handleToggle = () => {
         this.setState({
             modal: !this.state.modal
