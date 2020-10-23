@@ -32,3 +32,4 @@
   * **Method**: GET
   * **Optional parameters**: startDate, endDate
   * **Response**: { success , transactions: [ Transaction ] } 
+  * **Note**: Only startDate is inclusive
