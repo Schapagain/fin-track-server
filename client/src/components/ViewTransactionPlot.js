@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { getTransactions } from '../actions/transactionActions';
 import propTypes from 'prop-types';
 import Plot from 'react-plotly.js';
-import { getCumulativeAmountsForCurrentMonth } from '../utils';
+import { getCumulativeAmounts } from '../utils';
 import { connect } from 'react-redux';
+import moment from 'moment';
 
-class ViewThisMonth extends Component {
+class ViewTransactionPlot extends Component {
 
     state = {
         modal: false,
@@ -21,7 +22,8 @@ class ViewThisMonth extends Component {
 
     render(){
         const { transactions } = this.props.transactionReducer;
-        const {days, amounts, month} = getCumulativeAmountsForCurrentMonth(transactions);
+        const { days, amounts } = getCumulativeAmounts(transactions);
+        const { startDate, endDate } = this.props.filterReducer;
         return(
             <div>
                 {amounts.length? <Plot style={{width: '100%',height: '100%'}}
@@ -30,29 +32,28 @@ class ViewThisMonth extends Component {
                     ]}
                     layout={{
                         autosize: true,
-                        title: {text: 'Your activity in '.concat(month)},
-                        xaxis: {
-                            title: {text: 'Days'}
-                        },
+                        title: {text: `Your activity from ${moment(startDate).format('MMM Do')} to ${moment(endDate).format('MMM Do')}`},
                         yaxis: {
                             title: {text: 'Net transaction amounts ($)'}
                         }
                     }}
                     config={{displayModeBar:false,responsive:true}}
                     useResizeHandler={true}
-                /> : <h1>You have no activity this month</h1>}
+                /> : <h1>You have no activity in the chosen time range</h1>}
           </div>
         );
     }
 }
 
-ViewThisMonth.propTypes = {
+ViewTransactionPlot.propTypes = {
     getTransactions: propTypes.func.isRequired,
-    transactionReducer: propTypes.object.isRequired
+    transactionReducer: propTypes.object.isRequired,
+    filterReducer: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    transactionReducer: state.transactionReducer
+    transactionReducer: state.transactionReducer,
+    filterReducer: state.filterReducer
 });
 
-export default connect(mapStateToProps, { getTransactions })(ViewThisMonth);
+export default connect(mapStateToProps, { getTransactions })(ViewTransactionPlot);
