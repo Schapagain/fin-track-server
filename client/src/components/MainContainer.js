@@ -2,13 +2,14 @@ import React, { Component } from 'react';
 
 import TransactionList from './TransactionList';
 import AddTransaction from './AddTransaction';
-import ViewThisMonth from './ViewThisMonth';
+import ViewTransactionPlot from './ViewTransactionPlot';
 import PickDateRange from './PickDateRange';
 import { Container, Row, Col } from 'reactstrap';
 
 import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getTransactions } from '../actions/transactionActions';
+import PickCategory from '../components/PickCategory';
 
 class MainContainer extends Component {
 
@@ -16,18 +17,22 @@ class MainContainer extends Component {
     const {isAuthenticated} = this.props.auth;
     const authContainer = (
       <Container>
-            <Row>
+            <Row className="ml-1">
               <AddTransaction />
             </Row>
-            <Row>
+            <Row className="mb-2 ml-1">
               <PickDateRange />
+              <Col className="col-4">
+              <PickCategory />
+              </Col>
+                
             </Row>
             <Row className="pb-3">
               <Col xs="12" sm="12" md="12" lg="6">
                 <TransactionList /> 
               </Col>
               <Col xs="12" sm="12" md="12" lg="6">
-              <ViewThisMonth/>
+              <ViewTransactionPlot/>
               </Col>
             </Row>
           </Container>
