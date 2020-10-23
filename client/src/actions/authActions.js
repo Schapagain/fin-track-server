@@ -25,12 +25,12 @@ export const loadUser = () => async (dispatch,getState) => {
             payload: result.data
         })
     }catch(err){
-        dispatch(returnErrors(err.response.data.error,err.response.status));
+        
+        if(err.response) dispatch(returnErrors(err.response.data.error,err.response.status));
         dispatch({
             type: AUTH_ERROR
         })
     }
-    
 };
 
 export const registerUser = ({ name, email, password}) => async dispatch => {
@@ -63,7 +63,7 @@ export const loginUser = ({ email, password}) => async dispatch => {
             payload: result.data,
         })
     }catch(err){
-        dispatch(returnErrors(err.response.data.error,err.response.status,'LOGIN_FAIL'));
+        if (err.response) dispatch(returnErrors(err.response.data.error,err.response.status,'LOGIN_FAIL'));
         dispatch({
             type: LOGIN_FAIL
         })
