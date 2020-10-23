@@ -1,8 +1,7 @@
 import React,{ Component } from 'react';
 import DatePicker from 'react-datepicker';
-import moment from 'moment';
 import { connect } from 'react-redux';
-import { setStartDate, setEndDate } from '../actions/dateActions';
+import { setStartDate, setEndDate } from '../actions/filterActions';
 import { getTransactions } from '../actions/transactionActions';
 import propTypes from 'prop-types';
 import "react-datepicker/dist/react-datepicker.css";
@@ -26,26 +25,25 @@ class PickDateRange extends Component {
   render(){
       const { startDate,endDate } = this.props.dates;
       return (
-          <div>
-          <DatePicker
-            selected={startDate}
-            onChange={date => this.props.setStartDate(date)}
-            selectsStart
-            startDate={startDate}
-            endDate={endDate}
-            dateFormat="MM/yyyy"
-            showMonthYearPicker
-          />
-          <DatePicker
-            selected={endDate}
-            onChange={date => this.props.setEndDate(date)}
-            selectsEnd
-            startDate={startDate}
-            endDate={endDate}
-            dateFormat="MM/yyyy"
-            showMonthYearPicker
-          />
-        </div>
+          <>
+            <DatePicker
+              selected={startDate}
+              onChange={date => this.props.setStartDate(date)}
+              selectsStart
+              startDate={startDate}
+              endDate={endDate}
+              showMonthYearPicker
+            />
+            <DatePicker
+              selected={endDate}
+              onChange={date => this.props.setEndDate(date)}
+              selectsEnd
+              startDate={startDate}
+              endDate={endDate}
+              minDate={startDate}
+              showMonthYearPicker
+            />
+        </>
       );
     }
     
@@ -59,7 +57,7 @@ PickDateRange.propTypes = {
 }
 
 const mapStateToProps = state => ({
-    dates: state.dateReducer
+    dates: state.filterReducer
 });
 
 export default connect(mapStateToProps, { getTransactions, setStartDate, setEndDate })(PickDateRange);
