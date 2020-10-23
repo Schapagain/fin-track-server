@@ -8,7 +8,7 @@ export const getPrettyDate = transaction =>{
     }
 }
 
-export const getCumulativeAmountsForCurrentMonth = transactions => {
+export const getCumulativeAmounts = transactions => {
 
     // Filter transactions for this month
     // and sort them in ascending order of date
@@ -22,7 +22,7 @@ export const getCumulativeAmountsForCurrentMonth = transactions => {
     let amounts = new Map();
     for (let transaction of transactions){
         const currentAmount = _getSignedAmount(transaction);
-        const currentDay = moment.utc(transaction.dateObj).format('Do');
+        const currentDay = moment.utc(transaction.dateObj).format('MMM Do');
         amounts.has(currentDay)? amounts.set(currentDay,amounts.get(currentDay) + currentAmount) : amounts.set(currentDay,currentAmount);
     }
 
