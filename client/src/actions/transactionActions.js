@@ -8,9 +8,8 @@ export const getTransactions = () => async (dispatch,getState) => {
     dispatch(setTransactionsLoading());
     const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
     const config = getTokenConfig(getState);
-
-    const startDate = getState().dateReducer.startDate;
-    const endDate = getState().dateReducer.endDate;
+    const startDate = getState().filterReducer.startDate;
+    const endDate = getState().filterReducer.endDate;
     config.params= {startDate,endDate};
 
     try{
