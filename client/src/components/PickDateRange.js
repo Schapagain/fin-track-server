@@ -17,13 +17,13 @@ class PickDateRange extends Component {
   }
 
   shouldComponentUpdate(nextProps){
-      const { startDate, endDate } = this.props.dates;
-      const { startDate:nextStartDate, endDate:nextEndDate } = nextProps.dates;
+      const { startDate, endDate } = this.props.filters;
+      const { startDate:nextStartDate, endDate:nextEndDate } = nextProps.filters;
       return !(startDate.getTime() === nextStartDate.getTime()) || !(endDate.getTime() === nextEndDate.getTime());
   }
 
   render(){
-      const { startDate,endDate } = this.props.dates;
+      const { startDate,endDate } = this.props.filters;
       return (
           <>
             <DatePicker
@@ -53,11 +53,11 @@ PickDateRange.propTypes = {
     getTransactions: propTypes.func.isRequired,
     setStartDate: propTypes.func.isRequired,
     setEndDate: propTypes.func.isRequired,
-    dates: propTypes.object.isRequired
+    filters: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    dates: state.filterReducer
+    filters: state.filterReducer
 });
 
 export default connect(mapStateToProps, { getTransactions, setStartDate, setEndDate })(PickDateRange);
