@@ -1,4 +1,4 @@
-import { SET_START_DATE, SET_END_DATE, SET_CATEGORY } from './types';
+import { SET_START_DATE, SET_END_DATE, SET_CATEGORY, SET_TYPE } from './types';
 import moment from 'moment';
 
 export const setStartDate = date => (dispatch,getState) => {
@@ -9,7 +9,6 @@ export const setStartDate = date => (dispatch,getState) => {
 }
 
 export const setEndDate = date => (dispatch,getState) => {
-    console.log('at action:',date);
     dispatch({
         type: SET_END_DATE,
         payload: new Date(moment(date)),
@@ -19,6 +18,13 @@ export const setEndDate = date => (dispatch,getState) => {
 export const setCategory = category => dispatch => {
     dispatch({
         type: SET_CATEGORY,
-        payload: category,
+        payload: category.toLowerCase(),
+    })
+}
+
+export const setType = type => dispatch => {
+    dispatch({
+        type: SET_TYPE,
+        payload: type.toLowerCase(),
     })
 }
