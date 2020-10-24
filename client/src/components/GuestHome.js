@@ -7,8 +7,7 @@ import guestImage2 from '../guestImage2.png';
 class GuestHome extends Component {
     componentDidMount() {
         const strings = [
-          '^1000 Get ahold of your spendings',
-          'Start tracking your own finances',
+          '^500 Start tracking your own finances',
           'Visualize data and gain unique insights',
           'Login or register to get started',
           ];
