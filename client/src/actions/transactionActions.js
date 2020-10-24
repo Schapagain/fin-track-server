@@ -8,9 +8,8 @@ export const getTransactions = () => async (dispatch,getState) => {
     dispatch(setTransactionsLoading());
     const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
     const config = getTokenConfig(getState);
-    const startDate = getState().filterReducer.startDate;
-    const endDate = getState().filterReducer.endDate;
-    config.params= {startDate,endDate};
+    const { startDate, endDate, category, type } = getState().filterReducer;
+    config.params= {startDate, endDate, category, type};
 
     try{
         const result = await axios.get(endpoint,config);
