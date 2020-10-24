@@ -78,3 +78,8 @@ select {
   color: white;
   font-size: larger;
 }
+
+#loading-panel {
+  height: 70vh;
+  align-items: center;
+}

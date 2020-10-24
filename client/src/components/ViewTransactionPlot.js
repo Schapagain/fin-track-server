@@ -5,6 +5,7 @@ import Plot from 'react-plotly.js';
 import { getCategoricalAmounts, getCumulativeAmounts, getMonthlyCategoricalAmounts, getCurrentFilter } from '../utils';
 import { connect } from 'react-redux';
 import moment from 'moment';
+import LoadingPanel from './LoadingPanel';
 
 class ViewTransactionPlot extends Component {
 
@@ -21,13 +22,13 @@ class ViewTransactionPlot extends Component {
     }
 
     render(){
-        const { transactions } = this.props.transactions;
+        const { transactions, loading } = this.props.transactions;
         const { startDate, endDate, category, type } = this.props.filters;
         const plotType = type === ''? 'scatter':'bar';
         const { xvalues, yvalues } = category? getMonthlyCategoricalAmounts(transactions): (type  === ''? getCumulativeAmounts(transactions): getCategoricalAmounts(transactions));
         return(
             <div>
-                {yvalues.length? <Plot style={{width: '100%',height: '100%'}}
+                {loading? <LoadingPanel/> : yvalues.length? <Plot style={{width: '100%',height: '100%'}}
                     data={[
                     {type: plotType, x: xvalues, y: yvalues},
                     ]}

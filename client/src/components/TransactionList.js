@@ -4,6 +4,7 @@ import {CSSTransition, TransitionGroup} from 'react-transition-group';
 import { connect } from 'react-redux';
 import { getTransactions } from '../actions/transactionActions';
 import propTypes from 'prop-types';
+import LoadingPanel from './LoadingPanel';
 
 const Transaction = props => {
     const {transaction} = props;
@@ -19,10 +20,10 @@ const Transaction = props => {
 class TransactionList extends Component {
 
     render(){
-        const { transactions } = this.props.transactions;
+        const { transactions, loading } = this.props.transactions;
         return (
             <ListGroup id="transaction-list">
-                <TransitionGroup>
+                {loading? <LoadingPanel/>:<TransitionGroup>
                     {transactions.map(transaction => (
                         <CSSTransition key={transaction.id} timeout={500} classNames="fade">
                             <ListGroupItem>
@@ -30,7 +31,7 @@ class TransactionList extends Component {
                             </ListGroupItem>
                         </CSSTransition>
                     ))}
-                </TransitionGroup>
+                </TransitionGroup>}
             </ListGroup>
         )
     }

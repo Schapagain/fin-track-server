@@ -10,13 +10,13 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getTransactions } from '../actions/transactionActions';
 import PickCategory from '../components/PickCategory';
-import GuestCarousel from './GuestHome';
 import GuestHome from './GuestHome';
 
 class MainContainer extends Component {
 
   render(){
-    const {isAuthenticated} = this.props.auth;
+    const { isAuthenticated } = this.props.auth;
+
     const authContainer = (
       <Container id="main-panel">
             <Row className="ml-1">
@@ -30,10 +30,10 @@ class MainContainer extends Component {
             </Row>
             <Row className="pb-3">
               <Col className="mb-2" xs="12" sm="12" md="12" lg="6">
-                <TransactionList/> 
+                <TransactionList/>
               </Col>
               <Col xs="12" sm="12" md="12" lg="6">
-              <ViewTransactionPlot/>
+                <ViewTransactionPlot/>
               </Col>
             </Row>
           </Container>
@@ -57,12 +57,12 @@ class MainContainer extends Component {
 
 MainContainer.propTypes = {
   auth: propTypes.object.isRequired,
-  getTransactions: propTypes.func.isRequired
+  getTransactions: propTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
   auth: state.authReducer,
-  getTransactions: state.getTransactions
+  getTransactions: state.getTransactions,
 });
 
 export default connect(mapStateToProps,{ getTransactions })(MainContainer);

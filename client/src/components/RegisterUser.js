@@ -2,6 +2,7 @@ import React,{Component} from 'react';
 import { registerUser } from '../actions/authActions';
 import { clearErrors}  from '../actions/errorActions';
 import propTypes from 'prop-types';
+import { Spinner } from 'reactstrap';
 
 import {
     Button,
@@ -28,7 +29,7 @@ class RegisterUser extends Component {
     };
 
     componentDidUpdate(prevProps) {
-        const { error, isAuthenticated } = this.props;
+        const { error, auth } = this.props;
         if (error !== prevProps.error) {
             if (error.id === 'REGISTER_FAIL') {
                 this.setState({
@@ -42,7 +43,7 @@ class RegisterUser extends Component {
         }
 
         // Close the modal if it's open and the user is authenticated
-        if (this.state.modal && isAuthenticated) this.handleToggle();
+        if (this.state.modal && auth.isAuthenticated) this.handleToggle();
 
     }
 
@@ -91,7 +92,7 @@ class RegisterUser extends Component {
                                 <Input onChange={this.handleFormChange} name ="password" value={this.state.password} type="password" placeholder="Pick a password" required/>
                             </FormGroup>
                             <div className="text-center">
-                                <Button className="col-6" type="submit">Sign up!</Button>
+                                {this.props.auth.isLoading? <Spinner color="primary" />:<Button className="col-6" type="submit">Sign up!</Button>}
                             </div>
                         </Form>
                     </ModalBody>
@@ -102,14 +103,14 @@ class RegisterUser extends Component {
 }
 
 RegisterUser.propTypes = {
-    isAuthenticated: propTypes.bool,
+    auth: propTypes.object.isRequired,
     error: propTypes.object.isRequired,
     registerUser: propTypes.func.isRequired,
     clearErrors: propTypes.func.isRequired,
 }
 
 const mapStateToProps = state => ({
-    isAuthenticated: state.authReducer.isAuthenticated,
+    auth: state.authReducer,
     error: state.errorReducer
 });
 
