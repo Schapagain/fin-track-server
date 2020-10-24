@@ -41,7 +41,7 @@ class ViewTransactionPlot extends Component {
                     }}
                     config={{displayModeBar:false,responsive:true}}
                     useResizeHandler={true}
-                /> : <h1>You have no activity in the chosen time range</h1>}
+                /> : null}
           </div>
         );
     }
