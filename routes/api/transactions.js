@@ -14,15 +14,18 @@ const Transaction = require('../../models/transaction');
 // @desc    GET all transactions
 // @access  Private
 router.get('/', auth, async (req,res) => {
-    const {startDate,endDate} = req.query? req.query:{startDate: moment.utc(0), endDate: moment.utc()};
+
+    const startDate = req.query.startDate? req.query.startDate:moment.utc(0);
+    const endDate = req.query.endDate? req.query.endDate:moment.utc();
+    const category = req.query.category? req.query.category:/./;
+    const type = req.query.type? req.query.type:/./;
     const $gte = moment.utc(startDate).startOf('days');
-    const $lt = moment.utc(endDate).startOf('days');
+    const $lt = moment.utc(endDate).startOf('days');  
         try{
-        let transactions = await Transaction.find({userid: req.id, date:{ $gte,$lt}}).sort('-date');
+        let transactions = await Transaction.find({userid: req.id, date:{ $gte,$lt}, category: { $regex : new RegExp(category,'i') }, type: { $regex : new RegExp(type,'i') }}).sort('-date');
 
         // Clean up Transactions before responding
         transactions = getCleanTransactions(transactions);
-        
         res.status(200).json({
             success: true,
             transactions,
