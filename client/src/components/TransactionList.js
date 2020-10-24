@@ -21,19 +21,17 @@ class TransactionList extends Component {
     render(){
         const { transactions } = this.props.transactions;
         return (
-            <div id="main-panel">
-                <ListGroup id="transaction-list">
-                    <TransitionGroup>
-                        {transactions.map(transaction => (
-                            <CSSTransition key={transaction.id} timeout={500} classNames="fade">
-                                <ListGroupItem>
-                                    <Transaction transaction={transaction}/>
-                                </ListGroupItem>
-                            </CSSTransition>
-                        ))}
-                    </TransitionGroup>
-                </ListGroup>
-            </div>
+            <ListGroup id="transaction-list">
+                <TransitionGroup>
+                    {transactions.map(transaction => (
+                        <CSSTransition key={transaction.id} timeout={500} classNames="fade">
+                            <ListGroupItem>
+                                <Transaction transaction={transaction}/>
+                            </ListGroupItem>
+                        </CSSTransition>
+                    ))}
+                </TransitionGroup>
+            </ListGroup>
         )
     }
 }
