@@ -1,4 +1,8 @@
 
+* {
+  margin: 0;
+  padding: 0;
+}
 
 .App {
   background-color: rgb(88, 131, 211);
@@ -10,11 +14,11 @@
 }
 
 #main-panel{
-  height: 70vh;
+  
 }
 
 #transaction-list {
-  height: 90%;
+  height: 70vh;
   overflow-y: auto;
   overflow-x: hidden;
 }
