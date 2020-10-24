@@ -34,6 +34,7 @@ export const loadUser = () => async (dispatch,getState) => {
 };
 
 export const registerUser = ({ name, email, password}) => async dispatch => {
+    dispatch({type: USER_LOADING});
     const config = {headers: {"Content-type":"application/json"}};
     const body = JSON.stringify({name, email, password});
 
@@ -53,6 +54,7 @@ export const registerUser = ({ name, email, password}) => async dispatch => {
 }
 
 export const loginUser = ({ email, password}) => async dispatch => {
+    dispatch({type: USER_LOADING});
     const config = {headers: {"Content-type":"application/json"}};
     const body = JSON.stringify({email, password});
     const endpoint = process.env.NODE_ENV === "production"? '/api/auth/':localPrefix+'/api/auth/';
