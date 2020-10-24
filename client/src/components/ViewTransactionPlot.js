@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { getTransactions } from '../actions/transactionActions';
 import propTypes from 'prop-types';
 import Plot from 'react-plotly.js';
-import { getCumulativeAmounts } from '../utils';
+import { getCategoricalAmounts, getCumulativeAmounts, getMonthlyCategoricalAmounts, getCurrentFilter } from '../utils';
 import { connect } from 'react-redux';
 import moment from 'moment';
 
@@ -21,21 +21,22 @@ class ViewTransactionPlot extends Component {
     }
 
     render(){
-        const { transactions } = this.props.transactionReducer;
-        const { days, amounts } = getCumulativeAmounts(transactions);
-        const { startDate, endDate } = this.props.filterReducer;
+        const { transactions } = this.props.transactions;
+        const { startDate, endDate, category, type } = this.props.filters;
+        const plotType = type === ''? 'scatter':'bar';
+        const { xvalues, yvalues } = category? getMonthlyCategoricalAmounts(transactions): (type  === ''? getCumulativeAmounts(transactions): getCategoricalAmounts(transactions));
         return(
             <div>
-                {amounts.length? <Plot style={{width: '100%',height: '100%'}}
+                {yvalues.length? <Plot style={{width: '100%',height: '100%'}}
                     data={[
-                    {type: 'scatter', x: days, y: amounts},
+                    {type: plotType, x: xvalues, y: yvalues},
                     ]}
                     layout={{
                         autosize: true,
-                        title: {text: `Your activity from ${moment(startDate).format('MMM Do')} to ${moment(endDate).format('MMM Do')}`},
+                        title: {text: `${getCurrentFilter(type,category)} from ${moment(startDate).format('MMM Do')} to ${moment(endDate).format('MMM Do')}`},
                         yaxis: {
                             title: {text: 'Net transaction amounts ($)'}
-                        }
+                        },
                     }}
                     config={{displayModeBar:false,responsive:true}}
                     useResizeHandler={true}
@@ -47,13 +48,13 @@ class ViewTransactionPlot extends Component {
 
 ViewTransactionPlot.propTypes = {
     getTransactions: propTypes.func.isRequired,
-    transactionReducer: propTypes.object.isRequired,
-    filterReducer: propTypes.object.isRequired
+    transactions: propTypes.object.isRequired,
+    filters: propTypes.object.isRequired
 }
 
 const mapStateToProps = state => ({
-    transactionReducer: state.transactionReducer,
-    filterReducer: state.filterReducer
+    transactions: state.transactionReducer,
+    filters: state.filterReducer
 });
 
 export default connect(mapStateToProps, { getTransactions })(ViewTransactionPlot);
