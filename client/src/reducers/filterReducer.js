@@ -1,10 +1,11 @@
 import moment from 'moment';
-import { SET_START_DATE, SET_END_DATE, SET_CATEGORY } from '../actions/types';
+import { SET_START_DATE, SET_END_DATE, SET_CATEGORY, SET_TYPE } from '../actions/types';
 
 const initState = {
     startDate:new Date(moment().startOf('months')),
     endDate:new Date(moment().add(16,'days').startOf('months')),
-    category: "all transactions"
+    category: "",
+    type: "",
 }
 
 export default (state=initState, action) => {
@@ -23,6 +24,11 @@ export default (state=initState, action) => {
             return {
                 ...state,
                 category: action.payload
+            }
+        case SET_TYPE:
+            return {
+                ...state,
+                type: action.payload
             }
         default:
             return {
