@@ -16,7 +16,7 @@ class MainContainer extends Component {
   render(){
     const {isAuthenticated} = this.props.auth;
     const authContainer = (
-      <Container>
+      <Container id="main-panel">
             <Row className="ml-1">
               <AddTransaction />
             </Row>
@@ -25,11 +25,10 @@ class MainContainer extends Component {
               <Col className="col-4">
               <PickCategory />
               </Col>
-                
             </Row>
             <Row className="pb-3">
-              <Col xs="12" sm="12" md="12" lg="6">
-                <TransactionList /> 
+              <Col className="mb-2" xs="12" sm="12" md="12" lg="6">
+                <TransactionList/> 
               </Col>
               <Col xs="12" sm="12" md="12" lg="6">
               <ViewTransactionPlot/>
@@ -39,7 +38,7 @@ class MainContainer extends Component {
     )
 
     const guestContainer = (
-      <Container>
+      <Container id="main-panel">
         <Row>
           <h1>Login or Register to begin!</h1>
         </Row>
@@ -47,9 +46,9 @@ class MainContainer extends Component {
     )
 
     return (
-      <div>
-          {isAuthenticated? authContainer:guestContainer}
-      </div>
+      <>
+        {isAuthenticated? authContainer:guestContainer}
+      </>
     );
   }
 }
