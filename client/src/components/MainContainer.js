@@ -10,6 +10,8 @@ import { connect } from 'react-redux';
 import propTypes from 'prop-types';
 import { getTransactions } from '../actions/transactionActions';
 import PickCategory from '../components/PickCategory';
+import GuestCarousel from './GuestHome';
+import GuestHome from './GuestHome';
 
 class MainContainer extends Component {
 
@@ -39,8 +41,8 @@ class MainContainer extends Component {
 
     const guestContainer = (
       <Container id="main-panel">
-        <Row>
-          <h1>Login or Register to begin!</h1>
+        <Row className="justify-content-center">
+          <GuestHome />
         </Row>
       </Container>
     )
