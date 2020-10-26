@@ -57,7 +57,7 @@ class AddTransaction extends Component {
         const incomeCategories = (
             <Input defaultValue="" onChange={this.handleFormChange} type="select" name ="category" required>
                             <option value="" disabled>Pick a Category</option>
-                            <option value="Salary">Work</option>
+                            <option value="Work">Work</option>
                             <option value="Freelancing">Freelancing</option>
                             <option value="Teaching and Tutoring">Teaching and tutoring</option>
                             <option value="Refunds">Refunds</option>
