@@ -16,7 +16,7 @@ const Transaction = require('../../models/transaction');
 router.get('/', auth, async (req,res) => {
 
     const startDate = req.query.startDate? req.query.startDate:moment.utc(0);
-    const endDate = req.query.endDate? req.query.endDate:moment.utc();
+    const endDate = req.query.endDate? req.query.endDate:moment.utc().endOf('days');
     const category = req.query.category? req.query.category:/./;
     const type = req.query.type? req.query.type:/./;
     const $gte = moment.utc(startDate).startOf('days');
@@ -27,14 +27,12 @@ router.get('/', auth, async (req,res) => {
         // Clean up Transactions before responding
         transactions = getCleanTransactions(transactions);
         res.status(200).json({
-            success: true,
             transactions,
         })
     }
     catch(err) {
         console.log(err);
         res.status(500).json({
-            success: false,
             error: 'Could not get all transactions. Try again later.'
         })
     }
@@ -50,7 +48,6 @@ router.post('/', auth, async (req,res) => {
 
     if (!title || !amount || !type || !category || !date){
         return res.status(400).json({
-            success: false,
             error: "Please provide all required transaction properties"
         })
     }
@@ -65,14 +62,12 @@ router.post('/', auth, async (req,res) => {
         transaction = getCleanTransactions(transaction).pop();
 
         return res.status(200).json({
-            success: true,
             transaction,
         })
     }
     catch(err){
         console.log(err);
         return res.status(500).json({
-            success: false,
             error: 'Could not add a new transaction. Try again later.'
         })
     }
