@@ -29,20 +29,18 @@ router.post('/', async (req,res) => {
         let user = await User.findOne({ email })
         if (!user) {
             return res.status(400).json({
-                success: false,
                 error: "User doesn't exist"
             })
         } 
 
         // Compare username/password combination
         const credentialsMatch = await bcrypt.compare(password,user.password);
-        if (!credentialsMatch) return res.status(401).json({success:false,error:"Unauthorized"})
+        if (!credentialsMatch) return res.status(401).json({error:"Unauthorized"})
 
         // Clean up User and assign token before sending the user back
         const token = getAuthToken(user.id);
         user = getCleanUsers(user).pop();
         res.status(200).json({
-            success: true,
             user,
             token,
         })
@@ -50,7 +48,6 @@ router.post('/', async (req,res) => {
     catch(err){
         console.log(err);
         return res.status(500).json({
-            success: false,
             error: 'Could not add a new user. Try again later.'
         })
     }

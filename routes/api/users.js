@@ -18,7 +18,6 @@ router.post('/', async (req,res) => {
     // Check if all fields are given
     if (!name || !email || !password){
         return res.status(400).json({
-            success: false,
             error: "Please provide all required user properties"
         })
     }
@@ -28,7 +27,6 @@ router.post('/', async (req,res) => {
         let oldUser = await User.findOne({ email })
         if (oldUser) {
             return res.status(400).json({
-                success: false,
                 error: "Email has already been registered"
             })
         }
@@ -42,7 +40,6 @@ router.post('/', async (req,res) => {
         const token = getAuthToken(user.id);
         user = getCleanUsers(user).pop();
         res.status(200).json({
-            success: true,
             user,
             token,
         })
@@ -50,7 +47,6 @@ router.post('/', async (req,res) => {
     catch(err){
         console.log(err);
         return res.status(500).json({
-            success: false,
             error: 'Could not add a new user. Try again later.'
         })
     }
