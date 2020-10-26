@@ -51,10 +51,10 @@ class GuestHome extends Component {
             </Row>
             <Row className="justify-content-center">
               <Col className="mb-2" xs="10" sm="5" md="5">
-                <img style={{"width":"100%","height":"100%","backgroundColor":"red"}} className="rounded" src={guestImage1} alt="sample plot"></img>
+                <img style={{"width":"100%","height":"100%"}} className="rounded" src={guestImage1} alt="sample plot"></img>
               </Col>
               <Col className="mb-2" xs="10" sm="5" md="5">
-                <img style={{"width":"100%","height":"100%","backgroundColor":"green"}} className="rounded" src={guestImage2} alt="sample plot"></img>
+                <img style={{"width":"100%","height":"100%"}} className="rounded" src={guestImage2} alt="sample plot"></img>
               </Col>
             </Row>
         </Container>
