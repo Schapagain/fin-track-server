@@ -71,6 +71,9 @@ class AppNavbar extends Component {
                     </Nav>
                     <Nav className="ml-auto" navbar>
                         {isAuthenticated? authLinks:guestLinks}
+                        <NavItem>
+                            <NavLink href='https://github.com/Schapagain/finance-tracker'>Github</NavLink>
+                        </NavItem>
                     </Nav>
                     </Collapse>
                 </Container>
