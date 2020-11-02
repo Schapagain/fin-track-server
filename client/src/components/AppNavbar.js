@@ -6,7 +6,8 @@ import {
     NavbarBrand,
     Nav,
     NavItem,
-    Container
+    Container,
+    NavLink
 } from 'reactstrap';
 
 import RegisterUser from './RegisterUser';
