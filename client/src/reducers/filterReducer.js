@@ -3,7 +3,7 @@ import { SET_START_DATE, SET_END_DATE, SET_CATEGORY, SET_TYPE } from '../actions
 
 const initState = {
     startDate:new Date(moment().startOf('months')),
-    endDate:new Date(moment().add(16,'days').startOf('months')),
+    endDate:new Date(moment().endOf('months').add(5,'days').startOf('months')),
     category: "",
     type: "",
 }
