@@ -27,7 +27,7 @@ export const getCategoricalAmounts = transactions => {
     let amounts = new Map();
     for (let transaction of [...transactions].reverse()){
         const currentAmount = transaction.amount;
-        const currentCategory = transaction.category;
+        const currentCategory = transaction.category? transaction.category : transaction.type;
         amounts.has(currentCategory)? amounts.set(currentCategory,amounts.get(currentCategory) + currentAmount) : amounts.set(currentCategory,currentAmount);
     }
     return { xvalues: [...amounts.keys()], yvalues: [...amounts.values()]}
@@ -38,7 +38,7 @@ export const getMonthlyCategoricalAmounts = transactions => {
     let amounts = new Map();
     for (let transaction of [...transactions].reverse()){
         const currentAmount = transaction.amount;
-        const currentMonth = moment.utc(transaction.dateObj).format('MMM YY');
+        const currentMonth = moment.utc(transaction.dateObj).format('MMM');
         amounts.has(currentMonth)? amounts.set(currentMonth,amounts.get(currentMonth) + currentAmount) : amounts.set(currentMonth,currentAmount);
     }
 
