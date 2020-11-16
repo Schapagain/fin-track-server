@@ -23,9 +23,9 @@ class ViewTransactionPlot extends Component {
 
     render(){
         const { transactions, loading } = this.props.transactions;
-        const { startDate, endDate, category, type } = this.props.filters;
+        const { startDate, endDate, category, type, aggregate } = this.props.filters;
         const plotType = type === ''? 'scatter':'bar';
-        const { xvalues, yvalues } = category? getMonthlyCategoricalAmounts(transactions): (type  === ''? getCumulativeAmounts(transactions): getCategoricalAmounts(transactions));
+        const { xvalues, yvalues } = (aggregate || category)? getMonthlyCategoricalAmounts(transactions) : (type  === ''? getCumulativeAmounts(transactions): getCategoricalAmounts(transactions));
         return(
             <div>
                 {loading? <LoadingPanel/> : yvalues.length? <Plot style={{width: '100%',height: '100%'}}
