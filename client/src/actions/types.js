@@ -15,3 +15,4 @@ export const SET_START_DATE = 'SET_START_DATE';
 export const SET_END_DATE = 'SET_END_DATE';
 export const SET_CATEGORY = 'SET_CATEGORY';
 export const SET_TYPE = 'SET_TYPE';
+export const SET_AGGREGATE = 'SET_AGGREGATE'
