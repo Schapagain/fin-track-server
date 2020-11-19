@@ -87,4 +87,34 @@ router.post('/', auth, async (req,res) => {
     }
 })
 
+/**
+ * Route to delete a transaction
+ * @name    api/transactions/:id
+ * @method  DELETE
+ * @access  Private
+ * @inner
+ * @param   {string} path
+ * @param   {callback} middleware - Authenticate  
+ * @param   {callback} middleware - Handle HTTP response
+*/
+router.delete('/:id', 
+    auth,
+    async (req,res) => {
+        try{
+            const _id = req.params.id;
+            const userid = req.id;
+            const result = await Transaction.findOne({userid,_id});
+            if (!result) return res.status(404).json({error: 'Transaction not found'})
+        
+            await Transaction.deleteOne({_id})
+            res.status(200).json({message: "transaction deleted successfully"});
+        }catch(err){
+            console.log(err);
+            res.status(500).json({error:"Internal server error"})
+        }
+
+    }
+);
+
+
 module.exports = router;
