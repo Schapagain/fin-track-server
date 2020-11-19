@@ -2,10 +2,6 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
-// Log HTTP requests
-const morgan = require('morgan');
-app.use(morgan('dev'));
-
 // Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
