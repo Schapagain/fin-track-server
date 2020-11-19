@@ -10,9 +10,16 @@ const {getCleanTransactions} = require('../../utils/transactions')
 // Import the transaction model
 const Transaction = require('../../models/transaction');
 
-// @route   GET api/transaction
-// @desc    GET all transactions
-// @access  Private
+/**
+ * Route to get all transactions
+ * @name    api/transactions
+ * @method  GET
+ * @access  Private
+ * @inner
+ * @param   {string} path
+ * @param   {callback} middleware - Authenticate  
+ * @param   {callback} middleware - Handle HTTP response
+*/
 router.get('/', auth, async (req,res) => {
 
     const startDate = req.query.startDate? req.query.startDate:moment.utc(0);
@@ -39,9 +46,16 @@ router.get('/', auth, async (req,res) => {
     
 })
 
-// @route   POST api/transaction
-// @desc    Add a new transaction
-// @access  Private
+/**
+ * Route to add a new transaction
+ * @name    api/transactions
+ * @method  POST
+ * @access  Private
+ * @inner
+ * @param   {string} path
+ * @param   {callback} middleware - Authenticate  
+ * @param   {callback} middleware - Handle HTTP response
+*/
 router.post('/', auth, async (req,res) => {
 
     const {title,amount,category,type,date} = req.body;
