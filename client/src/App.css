@@ -48,6 +48,12 @@ select {
   color: rgb(226, 111, 111);
 }
 
+
+.transaction:hover{
+  background-color: hsl(0, 0%, 95%);
+  transform: scale(1.05);
+}
+
 .fade-enter {
   opacity: 0.01;
 }
