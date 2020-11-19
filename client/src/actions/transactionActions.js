@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { getPrettyDate } from '../utils';
-import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING } from './types';
+import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING, DELETE_TRANSACTION } from './types';
 import {getTokenConfig} from './authActions';
 const localPrefix = 'http://localhost:5000';
 
@@ -31,6 +31,22 @@ export const addTransaction = transaction => async (dispatch,getState) => {
         dispatch({
             type: ADD_TRANSACTION,
             payload: getPrettyDate(result.data.transaction)
+        })
+    }
+    catch(err){
+        console.log(err);
+    }
+
+};
+
+export const deleteTransaction = transactionId => async (dispatch,getState) => {
+    const endpoint = process.env.NODE_ENV === "production"? `/api/transactions/${transactionId}`:localPrefix+`/api/transactions/${transactionId}`;
+    console.log(endpoint)
+    try{
+        await axios.delete(endpoint,getTokenConfig(getState));
+        dispatch({
+            type: DELETE_TRANSACTION,
+            payload: transactionId
         })
     }
     catch(err){
