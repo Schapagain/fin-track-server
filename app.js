@@ -2,6 +2,10 @@ const express = require('express');
 const app = express();
 const path = require('path');
 
+// Log HTTP requests
+const morgan = require('morgan');
+app.use(morgan('dev'));
+
 // Body parser
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -32,5 +36,17 @@ if(process.env.NODE_ENV == "production") {
         res.sendFile(path.resolve(__dirname, 'client','build','index.html'));
     })
 }
+
+// Forward invalid routes to the error handler below
+app.use((req,res,next) => {
+    const error = new Error('Page Not found');
+    error.httpCode = 404;
+    next(error);
+})
+
+// Handle all errors thrown
+app.use((err,req,res,next) => {
+    res.status(err.httpCode || 500 ).json({ error: err.message || 'Server error' })
+});
 
 module.exports = app;
