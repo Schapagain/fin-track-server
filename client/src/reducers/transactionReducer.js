@@ -1,5 +1,5 @@
 
-import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING } from '../actions/types';
+import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING, DELETE_TRANSACTION } from '../actions/types';
 
 const initState = {
     transactions: [],
@@ -19,6 +19,11 @@ export default (state=initState, action) => {
                 ...state,
                 transactions: [action.payload,...state.transactions]
             };
+        case DELETE_TRANSACTION:
+            return {
+                ...state,
+                transactions: state.transactions.filter( transaction => transaction.id !== action.payload)
+            }
         case TRANSACTIONS_LOADING:
             return {
                 ...state,
