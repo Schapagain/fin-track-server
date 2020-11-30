@@ -11,6 +11,7 @@ import propTypes from 'prop-types';
 import { getTransactions } from '../actions/transactionActions';
 import PickCategory from '../components/PickCategory';
 import GuestHome from './GuestHome';
+import InsightsPanel from './InsightsPanel';
 
 class MainContainer extends Component {
 
@@ -34,6 +35,7 @@ class MainContainer extends Component {
               </Col>
               <Col xs="12" sm="12" md="12" lg="6">
                 <ViewTransactionPlot/>
+                <InsightsPanel />
               </Col>
             </Row>
           </Container>
