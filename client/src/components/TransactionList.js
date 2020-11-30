@@ -24,8 +24,15 @@ class TransactionList extends Component {
     render(){
         const { transactions, loading } = this.props.transactions;
         return (
+            <>
+            
             <ListGroup id="transaction-list">
-                {loading? <LoadingPanel/>:<TransitionGroup>
+                {loading? <LoadingPanel/>:
+                !transactions.length? 
+                <div className="no-transactions-panel rounded p-2">
+                    <p>You have no transactions in this period</p>
+                </div> :
+                <TransitionGroup>
                     {transactions.map(transaction => (
                         <CSSTransition key={transaction.id} timeout={500} classNames="fade">
                             <Transaction deleteTransaction={this.props.deleteTransaction} transaction={transaction}/>
@@ -33,6 +40,7 @@ class TransactionList extends Component {
                     ))}
                 </TransitionGroup>}
             </ListGroup>
+            </>
         )
     }
 }
