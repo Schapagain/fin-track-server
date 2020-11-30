@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400&display=swap');
 
 * {
   margin: 0;
@@ -7,14 +8,11 @@
 .App {
   background-color: rgb(88, 131, 211);
   min-height: 100vh;
+  font-family: 'Roboto', sans-serif
 }
 
 .navbar>img {
   height: 25px;
-}
-
-#main-panel{
-  
 }
 
 #transaction-list {
@@ -88,4 +86,18 @@ select {
 #loading-panel {
   height: 70vh;
   align-items: center;
+}
+
+.no-transactions-panel {
+  background-color: rgb(162, 205, 205);
+  text-align: center;
+  font-size: 1.2em;
+}
+
+.insights-panel {
+  display: flex;
+  background-color: lightblue;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3em;
 }
