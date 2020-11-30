@@ -56,7 +56,20 @@ export const getCurrentFilter = (type,category) => {
     return category? category:(type? type:"All transactions");
 }
 
+export const getTotalIncome = transactions => {
+    return _getTotalAmountByType(transactions,'income');
+}
+
+export const getTotalExpense = transactions => {
+    return _getTotalAmountByType(transactions,'expense');
+}
+
+const _getTotalAmountByType = (transactions,type) => { 
+    return transactions
+    .filter( t => t.type === type)
+    .reduce( (totalAmt,currTransaction) => totalAmt + currTransaction.amount , 0)
+}
+
 const _getSignedAmount = transaction => {
-    if (transaction.type === 'expense') return -1 * transaction.amount;
-    return transaction.amount;
+    return (transaction.type === 'expense')? -1 * transaction.amount : transaction.amount;
 }
