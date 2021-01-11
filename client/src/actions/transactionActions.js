@@ -2,11 +2,11 @@ import axios from 'axios';
 import { getPrettyDate } from '../utils';
 import { GET_TRANSACTIONS, ADD_TRANSACTION, TRANSACTIONS_LOADING, DELETE_TRANSACTION } from './types';
 import {getTokenConfig} from './authActions';
-const localPrefix = 'http://localhost:5000';
+import {getServerAddress} from './utils';
 
 export const getTransactions = () => async (dispatch,getState) => {
     dispatch(setTransactionsLoading());
-    const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
+    const endpoint = getServerAddress() + '/api/transactions';
     const config = getTokenConfig(getState);
     const { startDate, endDate, category, type } = getState().filterReducer;
     config.params= {startDate, endDate, category, type};
@@ -25,7 +25,7 @@ export const getTransactions = () => async (dispatch,getState) => {
 
 export const addTransaction = transaction => async (dispatch,getState) => {
     
-    const endpoint = process.env.NODE_ENV === "production"? '/api/transactions':localPrefix+'/api/transactions';
+    const endpoint = getServerAddress() + '/api/transactions';
     try{
         const result = await axios.post(endpoint,transaction,getTokenConfig(getState));
         dispatch({
@@ -40,7 +40,7 @@ export const addTransaction = transaction => async (dispatch,getState) => {
 };
 
 export const deleteTransaction = transactionId => async (dispatch,getState) => {
-    const endpoint = process.env.NODE_ENV === "production"? `/api/transactions/${transactionId}`:localPrefix+`/api/transactions/${transactionId}`;
+    const endpoint = getServerAddress() + `/api/transactions/${transactionId}`;
     console.log(endpoint)
     try{
         await axios.delete(endpoint,getTokenConfig(getState));

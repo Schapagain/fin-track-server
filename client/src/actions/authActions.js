@@ -1,5 +1,5 @@
 import axios from 'axios';
-
+import { getServerAddress } from './utils';
 import {
     USER_LOADING,
     USER_LOADED ,
@@ -12,12 +12,11 @@ import {
 } from '../actions/types';
 import {returnErrors} from './errorActions';
 
-const localPrefix = 'http://localhost:5000';
 export const loadUser = () => async (dispatch,getState) => {
 
     dispatch({type: USER_LOADING});
 
-    const endpoint = process.env.NODE_ENV === "production"? '/api/auth/user':localPrefix+'/api/auth/user';
+    const endpoint = getServerAddress() + '/api/auth/user';
     try{
         const result = await axios.get(endpoint, getTokenConfig(getState));
         dispatch({
@@ -38,7 +37,7 @@ export const registerUser = ({ name, email, password}) => async dispatch => {
     const config = {headers: {"Content-type":"application/json"}};
     const body = JSON.stringify({name, email, password});
 
-    const endpoint = process.env.NODE_ENV === "production"? '/api/users':localPrefix+'/api/users';
+    const endpoint = getServerAddress() + '/api/users'
     try{
         const result = await axios.post(endpoint,body,config);
         dispatch({
@@ -57,7 +56,7 @@ export const loginUser = ({ email, password}) => async dispatch => {
     dispatch({type: USER_LOADING});
     const config = {headers: {"Content-type":"application/json"}};
     const body = JSON.stringify({email, password});
-    const endpoint = process.env.NODE_ENV === "production"? '/api/auth/':localPrefix+'/api/auth/';
+    const endpoint = getServerAddress() + '/api/auth'
     try{
         const result = await axios.post(endpoint,body,config);
         dispatch({
