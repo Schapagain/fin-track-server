@@ -3,9 +3,6 @@ const app = express();
 const path = require('path');
 
 
-// random comment
-
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
