@@ -19,7 +19,7 @@ class InsightsPanel extends Component {
     }
 
     render(){
-        const { transactions,loading } = this.props.transactions;
+        const { transactions } = this.props.transactions;
         const totalExpense = getTotalExpense(transactions);
         const totalIncome = getTotalIncome(transactions);
         const expensePercent = Number(totalExpense*100/totalIncome).toFixed(1);
