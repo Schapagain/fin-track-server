@@ -1,21 +1,15 @@
 {
   "name": "finance-tracker",
   "version": "1.0.0",
-  "description": "Simple personal finance tracking application build using the MERN stack",
+  "description": "Server to expose APIS that help track personal finance",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "npm start --prefix client",
-    "client-install": "npm install --prefix client",
-    "devStart": "concurrently \"npm run server\" \"npm run client\"",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "server": "nodemon server.js"
   },
   "keywords": [
     "Express",
-    "Node.js",
-    "MERN",
-    "React"
+    "Node.js"
   ],
   "author": "Sandesh Chapagain",
   "license": "MIT",
