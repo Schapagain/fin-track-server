@@ -1,6 +1,17 @@
 
+
+# Track It
+[A web application](https://fin-track.netlify.app/) that allows you to track your incomes, and expenses.
+
+> Please find the client [here](https://github.com/Schapagain/fin-track-client)
+
+I kept track of my basic finances using Python and some basic CLI functions for a while, and really enjoyed the process.
+When I started learning web development, I wanted to build something more interactive and visual, and this project came to life as a result.
+
+Please feel free to send requests to the server deployed in [heroku](https://my-ftrack-app.herokuapp.com/) if you're working on building a different frontend for a similar task. The startup might be slightly slow since I only have a free membership.
+
+
 # Guide to the backend API
-> Note: All routes return with { error } in case of failure
 
 ## User handling
 1. Register a user
